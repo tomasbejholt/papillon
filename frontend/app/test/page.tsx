@@ -34,6 +34,7 @@ export default function TestPage() {
   const [dragging, setDragging] = useState(false);
   const [selectedSpecies, setSelectedSpecies] = useState<string>("all");
   const inputRef = useRef<HTMLInputElement>(null);
+  const top3Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetch(`${BASE}/test-images`)
@@ -41,6 +42,12 @@ export default function TestPage() {
       .then(d => setTestImages(d.images ?? []))
       .catch(() => null);
   }, []);
+
+  useEffect(() => {
+    if (predictions) {
+      top3Ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [predictions]);
 
   const speciesList = Array.from(new Set(testImages.map(img => {
     const parts = img.replace(".jpg", "").split("_");
@@ -294,7 +301,7 @@ export default function TestPage() {
 
       {/* Top-3 per model */}
       {predictions && !loading && (
-        <div className="glass p-6 md:p-8">
+        <div ref={top3Ref} className="glass p-6 md:p-8">
           <h3 className="text-white font-semibold mb-6">Top-3 per model</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {Object.entries(predictions).map(([key, pred]) => {
