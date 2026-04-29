@@ -68,7 +68,7 @@ function ConfusionMatrix({ matrix, modelName, color }: { matrix: number[][], mod
       <h3 className="text-white font-semibold mb-1">{modelName}</h3>
       <p className="text-white/40 text-xs mb-4">Confusion matrix (10×10)</p>
       <div className="overflow-x-auto relative">
-        <div style={{ display: "grid", gridTemplateColumns: `repeat(${CLASSES.length}, minmax(28px, 1fr))`, gap: 2 }}>
+        <div style={{ display: "grid", gridTemplateColumns: `repeat(${CLASSES.length}, minmax(28px, 1fr))`, gap: 2, minWidth: 320 }}>
           {matrix.map((row, ri) =>
             row.map((val, ci) => {
               const intensity = val / max;
@@ -110,12 +110,12 @@ function ConfusionMatrix({ matrix, modelName, color }: { matrix: number[][], mod
           )}
         </div>
       </div>
-      <div className="flex justify-between mt-3 text-xs text-white/40">
+      <div className="flex flex-wrap justify-between mt-3 gap-2 text-xs text-white/40">
         <div className="flex gap-4">
           <span>↓ Actual class</span>
           <span>→ Predicted class</span>
         </div>
-        <span>Hover a cell for details</span>
+        <span className="hidden sm:block">Hover a cell for details</span>
       </div>
 
       {tooltip && (
@@ -190,7 +190,7 @@ export default function ComparisonPage() {
     <div className="max-w-6xl mx-auto px-6 py-16">
       <div className="mb-16">
         <p className="text-white/40 text-sm tracking-widest uppercase mb-3">Results &amp; Analysis</p>
-        <h1 className="text-5xl font-bold text-white mb-2">Comparison</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">Comparison</h1>
         <div className="accent-bar w-16 mb-6" />
         <p className="text-white/60 text-lg max-w-2xl">
           Accuracy, parameters, and training time for all four models, along with per-model confusion matrices and per-class metrics.
@@ -198,7 +198,7 @@ export default function ComparisonPage() {
       </div>
 
       {/* Three bar charts */}
-      <section className="grid grid-cols-3 gap-6 mb-16">
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
         {[
           { title: "Val Accuracy", key: "accuracy" as const, suffix: "", domain: [0, 1] as [number, number] },
           { title: "Parameters (M)", key: "params" as const, suffix: " M", domain: [0, 30] as [number, number] },
@@ -221,39 +221,41 @@ export default function ComparisonPage() {
       </section>
 
       {/* Summary table */}
-      <section className="glass p-8 mb-16">
+      <section className="glass p-6 md:p-8 mb-16">
         <h2 className="text-xl font-bold text-white mb-6">Summary</h2>
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-white/10">
-              {["Model", "Parameters", "Val Accuracy", "Training time", "GPU"].map(h => (
-                <th key={h} className="text-left text-white/40 text-xs uppercase tracking-wider pb-3 pr-6">{h}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              { model: "MLP",            params: "25 331 850", acc: "80%",  time: "0.8 min" },
-              { model: "CNN",            params: "1 175 786",  acc: "92%",  time: "1.0 min" },
-              { model: "EfficientNet-B0",params: "4 020 358",  acc: "98%",  time: "1.1 min" },
-              { model: "ResNet-18",      params: "11 181 642", acc: "100%", time: "0.9 min" },
-            ].map((row, i) => (
-              <tr key={row.model} className="border-b border-white/5">
-                <td className="py-4 pr-6">
-                  <span className="font-medium" style={{ color: CHART_COLORS[i] }}>{row.model}</span>
-                </td>
-                <td className="py-4 pr-6 text-white/60 text-sm font-mono">{row.params}</td>
-                <td className="py-4 pr-6 text-white font-semibold">{row.acc}</td>
-                <td className="py-4 pr-6 text-white/60 text-sm">{row.time}</td>
-                <td className="py-4 text-white/40 text-sm">NVIDIA L4</td>
+        <div className="overflow-x-auto">
+          <table className="w-full" style={{ minWidth: 480 }}>
+            <thead>
+              <tr className="border-b border-white/10">
+                {["Model", "Parameters", "Val Accuracy", "Training time", "GPU"].map(h => (
+                  <th key={h} className="text-left text-white/40 text-xs uppercase tracking-wider pb-3 pr-6">{h}</th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {[
+                { model: "MLP",            params: "25 331 850", acc: "80%",  time: "0.8 min" },
+                { model: "CNN",            params: "1 175 786",  acc: "92%",  time: "1.0 min" },
+                { model: "EfficientNet-B0",params: "4 020 358",  acc: "98%",  time: "1.1 min" },
+                { model: "ResNet-18",      params: "11 181 642", acc: "100%", time: "0.9 min" },
+              ].map((row, i) => (
+                <tr key={row.model} className="border-b border-white/5">
+                  <td className="py-4 pr-6">
+                    <span className="font-medium" style={{ color: CHART_COLORS[i] }}>{row.model}</span>
+                  </td>
+                  <td className="py-4 pr-6 text-white/60 text-sm font-mono">{row.params}</td>
+                  <td className="py-4 pr-6 text-white font-semibold">{row.acc}</td>
+                  <td className="py-4 pr-6 text-white/60 text-sm">{row.time}</td>
+                  <td className="py-4 text-white/40 text-sm">NVIDIA L4</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       {/* Model selector (shared by confusion matrix + per-class metrics) */}
-      <div className="flex gap-3 mb-8">
+      <div className="flex flex-wrap gap-3 mb-8">
         {Object.entries(MODEL_NAMES).map(([key, name]) => (
           <button
             key={key}
@@ -290,7 +292,7 @@ export default function ComparisonPage() {
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-4 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
           {CLASSES.map((cls, i) => (
             <div key={cls} className="flex items-center gap-2 text-xs text-white/50">
               <span className="font-mono text-white/30 w-4">{String(i).padStart(2,"0")}</span>
@@ -301,28 +303,30 @@ export default function ComparisonPage() {
       </section>
 
       {/* Per-class metrics */}
-      <section className="glass p-8">
+      <section className="glass p-6 md:p-8">
         <h2 className="text-xl font-bold text-white mb-2">Per-class Metrics — {MODEL_NAMES[activeModel]}</h2>
         <p className="text-white/40 text-xs mb-6">Precision, recall and F1 computed from the confusion matrix above.</p>
 
         {classMetrics ? (
-          <div>
-            {/* Header */}
-            <div className="grid grid-cols-4 gap-4 mb-3 px-1">
-              <span className="text-white/40 text-xs uppercase tracking-wider">Class</span>
-              <span className="text-white/40 text-xs uppercase tracking-wider">Precision</span>
-              <span className="text-white/40 text-xs uppercase tracking-wider">Recall</span>
-              <span className="text-white/40 text-xs uppercase tracking-wider">F1</span>
-            </div>
-            <div className="flex flex-col gap-3">
-              {classMetrics.map(({ name, precision, recall, f1 }) => (
-                <div key={name} className="grid grid-cols-4 gap-4 items-center px-1 py-2 rounded-lg" style={{ background: "rgba(255,255,255,0.03)" }}>
-                  <span className="text-white/70 text-sm">{name}</span>
-                  <MetricBar value={precision} color={activeColor} />
-                  <MetricBar value={recall} color={activeColor} />
-                  <MetricBar value={f1} color={activeColor} />
-                </div>
-              ))}
+          <div className="overflow-x-auto">
+            <div style={{ minWidth: 480 }}>
+              {/* Header */}
+              <div className="grid grid-cols-4 gap-4 mb-3 px-1">
+                <span className="text-white/40 text-xs uppercase tracking-wider">Class</span>
+                <span className="text-white/40 text-xs uppercase tracking-wider">Precision</span>
+                <span className="text-white/40 text-xs uppercase tracking-wider">Recall</span>
+                <span className="text-white/40 text-xs uppercase tracking-wider">F1</span>
+              </div>
+              <div className="flex flex-col gap-3">
+                {classMetrics.map(({ name, precision, recall, f1 }) => (
+                  <div key={name} className="grid grid-cols-4 gap-4 items-center px-1 py-2 rounded-lg" style={{ background: "rgba(255,255,255,0.03)" }}>
+                    <span className="text-white/70 text-sm">{name}</span>
+                    <MetricBar value={precision} color={activeColor} />
+                    <MetricBar value={recall} color={activeColor} />
+                    <MetricBar value={f1} color={activeColor} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ) : (

@@ -123,14 +123,14 @@ export default function TestPage() {
     <div className="max-w-6xl mx-auto px-6 py-16">
       <div className="mb-12">
         <p className="text-white/40 text-sm tracking-widest uppercase mb-3">Classification</p>
-        <h1 className="text-5xl font-bold text-white mb-2">Test the Models</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">Test the Models</h1>
         <div className="accent-bar w-16 mb-6" />
         <p className="text-white/60 text-lg max-w-2xl">
           Upload an image or pick from the test gallery. All four models classify simultaneously.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-8 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
         {/* Left: upload + preview + results */}
         <div className="flex flex-col gap-6">
           {/* Drop zone */}
@@ -176,7 +176,7 @@ export default function TestPage() {
                   </svg>
                 </div>
                 <p className="text-white/60 text-sm">Drag and drop an image here</p>
-                <p className="text-white/30 text-xs mt-1">or click to select a file</p>
+                <p className="text-white/30 text-xs mt-1">or tap to select a file</p>
               </>
             )}
           </div>
@@ -210,14 +210,14 @@ export default function TestPage() {
 
         {/* Right: image library */}
         <div className="glass p-6 flex flex-col gap-4" style={{ maxHeight: "75vh", overflow: "hidden" }}>
-          <div className="flex items-center justify-between">
-            <div>
+          <div className="flex items-center justify-between gap-4">
+            <div className="min-w-0">
               <h3 className="text-white font-semibold">Test Library</h3>
-              <p className="text-white/35 text-xs mt-0.5">Images from the validation set, not used during training</p>
+              <p className="text-white/35 text-xs mt-0.5 hidden sm:block">Images from the validation set, not used during training</p>
             </div>
             <button
               onClick={handleRandom}
-              className="px-4 py-1.5 rounded-full text-xs font-semibold text-white transition-all"
+              className="px-4 py-1.5 rounded-full text-xs font-semibold text-white transition-all shrink-0"
               style={{ background: "linear-gradient(135deg, #7c3aed, #2563eb)" }}
             >
               Random
@@ -271,7 +271,7 @@ export default function TestPage() {
                     style={{
                       border: `2px solid ${isSelected ? "#a78bfa" : "transparent"}`,
                       opacity: isSelected ? 1 : 0.75,
-                      cursor: "grab",
+                      cursor: "pointer",
                     }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -294,9 +294,9 @@ export default function TestPage() {
 
       {/* Top-3 per model */}
       {predictions && !loading && (
-        <div className="glass p-8">
+        <div className="glass p-6 md:p-8">
           <h3 className="text-white font-semibold mb-6">Top-3 per model</h3>
-          <div className="grid grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {Object.entries(predictions).map(([key, pred]) => {
               const top3 = Object.entries(pred.all_probs)
                 .sort(([, a], [, b]) => b - a)

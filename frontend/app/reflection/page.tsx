@@ -56,7 +56,7 @@ export default function ReflectionPage() {
     <div className="max-w-4xl mx-auto px-6 py-16">
       <div className="mb-16">
         <p className="text-white/40 text-sm tracking-widest uppercase mb-3">Assignment 3</p>
-        <h1 className="text-5xl font-bold text-white mb-2">Reflection</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">Reflection</h1>
         <div className="accent-bar w-16 mb-6" />
         <p className="text-white/60 text-lg max-w-2xl">
           A look back at the dataset, modelling decisions, results, and what I would approach differently next time.
@@ -65,10 +65,10 @@ export default function ReflectionPage() {
 
       <div className="flex flex-col gap-8">
         {sections.map((s) => (
-          <div key={s.number} className="glass p-8">
+          <div key={s.number} className="glass p-5 md:p-8">
             <div className="flex items-center gap-4 mb-5">
               <span className="text-white/20 font-mono text-sm">{s.number}</span>
-              <h2 className="text-2xl font-bold" style={{ color: s.color }}>{s.title}</h2>
+              <h2 className="text-xl md:text-2xl font-bold" style={{ color: s.color }}>{s.title}</h2>
             </div>
             <div className="accent-bar mb-6" style={{ background: `linear-gradient(90deg, ${s.color}, transparent)` }} />
             {s.content.split("\n\n").map((para, i) => (

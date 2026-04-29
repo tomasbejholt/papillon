@@ -25,16 +25,16 @@ export default function Home() {
     <div className="max-w-6xl mx-auto px-6 py-16">
 
       {/* Hero */}
-      <section className="text-center mb-24">
+      <section className="text-center mb-20">
         <p className="text-white/40 text-sm tracking-widest uppercase mb-4">Image Classification with Deep Learning</p>
-        <h1 className="text-7xl font-bold gradient-text mb-6" style={{ lineHeight: 1.1 }}>
+        <h1 className="text-5xl md:text-7xl font-bold gradient-text mb-6" style={{ lineHeight: 1.1 }}>
           Papillon
         </h1>
-        <p className="text-white/60 text-xl max-w-2xl mx-auto leading-relaxed mb-10">
+        <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10">
           Four models trained to identify 10 species of butterflies and moths.
           From simple MLP networks to pretrained ImageNet models.
         </p>
-        <div className="flex gap-4 justify-center">
+        <div className="flex flex-wrap gap-4 justify-center">
           <Link href="/test" className="px-8 py-3 rounded-full text-sm font-semibold text-white"
             style={{ background: "linear-gradient(135deg, #7c3aed, #2563eb)" }}>
             Test the models
@@ -46,7 +46,7 @@ export default function Home() {
       </section>
 
       {/* Model results overview */}
-      <section className="grid grid-cols-4 gap-4 mb-20">
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
         {models.map((m) => (
           <div key={m.name} className="glass p-6 text-center glow-purple">
             <div className="text-3xl font-bold mb-1" style={{ color: m.color }}>{m.acc}</div>
@@ -59,8 +59,8 @@ export default function Home() {
       <section className="mb-20">
         <h2 className="text-3xl font-bold text-white mb-2">The Dataset</h2>
         <div className="accent-bar w-16 mb-8" />
-        <div className="grid grid-cols-2 gap-8">
-          <div className="glass p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="glass p-6 md:p-8">
             <p className="text-white/70 leading-relaxed mb-6">
               Butterflies &amp; Moths is a Kaggle dataset containing images of
               100 butterfly and moth species photographed in natural environments. The images are standardised
@@ -86,7 +86,7 @@ export default function Home() {
       <section className="mb-20">
         <h2 className="text-3xl font-bold text-white mb-2">The 10 Species</h2>
         <div className="accent-bar w-16 mb-8" />
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {species.map((s, i) => (
             <div key={s} className="glass px-5 py-3 flex items-center gap-3">
               <span className="text-white/30 text-xs font-mono w-5">{String(i + 1).padStart(2, "0")}</span>
@@ -97,7 +97,7 @@ export default function Home() {
       </section>
 
       {/* Challenge */}
-      <section className="glass p-10 text-center">
+      <section className="glass p-6 md:p-10 text-center">
         <h2 className="text-2xl font-bold text-white mb-4">Why Is It Challenging?</h2>
         <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
           Many butterfly species share similar colour patterns and wing shapes. A trained human eye

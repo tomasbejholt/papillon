@@ -88,7 +88,7 @@ export default function ModelsPage() {
     <div className="max-w-6xl mx-auto px-6 py-16">
       <div className="mb-16">
         <p className="text-white/40 text-sm tracking-widest uppercase mb-3">Architecture &amp; Training</p>
-        <h1 className="text-5xl font-bold text-white mb-2">Models</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">Models</h1>
         <div className="accent-bar w-16 mb-6" />
         <p className="text-white/60 text-lg max-w-2xl">
           Four models trained on the same data, from a simple baseline to state-of-the-art pretrained networks.
@@ -97,8 +97,8 @@ export default function ModelsPage() {
 
       <div className="flex flex-col gap-10">
         {models.map((m, i) => (
-          <div key={m.key} className="glass p-8">
-            <div className="flex items-start justify-between mb-6">
+          <div key={m.key} className="glass p-5 md:p-8">
+            <div className="flex items-start justify-between flex-wrap gap-4 mb-6">
               <div>
                 <div className="flex items-center gap-3 mb-1">
                   <span className="text-white/30 text-sm font-mono">0{i + 1}</span>
@@ -116,7 +116,7 @@ export default function ModelsPage() {
 
             <p className="text-white/70 leading-relaxed mb-8">{m.description}</p>
 
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Stats */}
               <div>
                 <h3 className="text-white/40 text-xs uppercase tracking-wider mb-3">Statistics</h3>
