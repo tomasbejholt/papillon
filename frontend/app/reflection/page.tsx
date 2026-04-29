@@ -41,6 +41,14 @@ I would also use more data augmentation, especially for the MLP and CNN. They ha
 
 Overall it was a fun project and comparing four models side by side gave me a much better feel for what actually makes a difference in practice.`,
   },
+  {
+    number: "06",
+    title: "Deployment",
+    color: "#a3e635",
+    content: `The API is hosted on Hugging Face Spaces using a Docker container. It runs FastAPI with uvicorn on port 7860, which is the default port Hugging Face exposes. All four models are loaded into memory at startup and run inference on CPU. Hugging Face gives 16 GB RAM and 2 vCPUs on the free tier, which is enough to keep all models loaded without issues.
+
+The frontend is deployed on Vercel and connects to the API via an environment variable. The source code is public on GitHub.`,
+  },
 ];
 
 export default function ReflectionPage() {
