@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  background: #020817;
+  color: white;
+  min-height: 100vh;
+}
+
+.gradient-bg {
+  background: radial-gradient(ellipse at top left, #1e1b4b 0%, #020817 45%, #0c0a1e 100%);
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #a78bfa 0%, #818cf8 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-purple {
+  box-shadow: 0 0 60px rgba(139, 92, 246, 0.2), 0 0 120px rgba(139, 92, 246, 0.05);
+}
+
+.accent-bar {
+  height: 3px;
+  background: linear-gradient(90deg, #a78bfa, #38bdf8);
+  border-radius: 2px;
+}
