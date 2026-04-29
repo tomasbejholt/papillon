@@ -55,7 +55,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-white/10 px-6 py-4 flex flex-col gap-5">
+        <div className="md:hidden border-t border-white/10 px-6 py-4 flex flex-col gap-5" style={{ background: "rgba(2, 8, 23, 0.97)", backdropFilter: "blur(16px)" }}>
           {links.map((link) => (
             <Link
               key={link.href}
